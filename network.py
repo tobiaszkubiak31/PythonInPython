@@ -3,7 +3,7 @@ import logging
 
 
 class Network:
-    def __init__(self, ip, port):
+    def __init__(self, ip="localhost", port=5555):
         self.ip = ip
         self.port = port
         self.address = (self.ip, self.port)
@@ -16,7 +16,6 @@ class Network:
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)   # to prevent "address already in use" error
         self.socket.bind(self.address)
         self.socket.listen(1)   # limit number of connections to 1
-
         logging.info("Server Started")
 
     def accept(self):
