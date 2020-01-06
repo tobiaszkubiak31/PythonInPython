@@ -4,9 +4,9 @@ import logging
 
 
 def establish_network():
-    net = Network(ip="localhost", port=5555)
+    net = Network(ip="localhost", port=5556)
     net.start()
-    net.connect(ip="localhost", port=5556)
+    net.connect(ip="localhost", port=5555)
     net.accept()
     return net
 

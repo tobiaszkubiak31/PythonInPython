@@ -1,7 +1,6 @@
 import pygame
 from game_window import GameWindow
 from game import Game
-from player import Player
 
 
 class Application:
@@ -11,8 +10,8 @@ class Application:
     def launch_game(self):
         game_window = GameWindow()
         game = Game()
-        start_pos = (0, 0)
-        player = Player(start_pos[0], start_pos[1], 100, 100, (0, 255, 0))
+        game_window.set_game_object(game)
+        game.create_players()
 
         clock = pygame.time.Clock()
 
@@ -25,7 +24,7 @@ class Application:
                     pygame.quit()
                     run = False
 
-            player.move()
+            game.player_one.move()
             game_window.redraw_window()
 
         self.net.close()
