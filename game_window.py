@@ -1,5 +1,5 @@
 import time
-
+import colors
 import pygame
 
 
@@ -21,14 +21,16 @@ class GameWindow:
     def draw_player(self, player):
         pygame.draw.rect(self.win, player.color, player.rect)
 
-    def draw_fruits(self):
-        pass
+    def draw_fruits(self,fruit):
+        snake_block_size = 20
+        pygame.draw.rect(self.win, colors.blue, [fruit.x, fruit.y, snake_block_size, snake_block_size])
 
     def redraw_window(self):
         self.win.fill((255, 255, 255))
         self.draw_player(self.game.player_one)
         self.draw_player(self.game.player_two)
-        # self.draw_fruits()
+        self.draw_fruits(self.game.fruits[0])
+        self.draw_fruits(self.game.fruits[1])
         pygame.display.update()
     def draw_gameover(self):
         self.win.fill((0, 0, 0))

@@ -16,6 +16,8 @@ class Application:
         game = Game()
         game_window.set_game_object(game)
         game.create_players()
+        game.create_fruits()
+
         clock = pygame.time.Clock()
 
 

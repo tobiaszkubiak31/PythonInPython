@@ -1,14 +1,14 @@
 import pygame
-
+import colors
 
 class Player:
-    def __init__(self, x=0, y=0, width=20, height=20, color=(0, 255, 0)):
+    def __init__(self, x=0, y=0, width_snake_block=20, height_snake_block=20, color=colors.black):
         self.x = x
         self.y = y
-        self.width = width
-        self.height = height
+        self.width_snake_block = width_snake_block
+        self.height_snake_block = height_snake_block
         self.color = color
-        self.rect = (x, y, width, height)
+        self.rect = (x, y, width_snake_block, height_snake_block)
         self.speed = 1 #speed
         self.direction = 0;
         self.length = 3
@@ -50,11 +50,17 @@ class Player:
         self.update()
 
     def update(self):
-        self.rect = (self.x, self.y, self.width, self.height)
+        self.rect = (self.x, self.y, self.width_snake_block, self.height_snake_block)
     def checkCollision(self):
         if self.x >= self.widthWindow or self.x < 0 or self.y >= self.widthWindow or self.y < 0:
             return True
         else:
             False
+
+    def check_fruitposition(self,fruits):
+        #todo: implement after snake 
+        print("got fruit")
+
+
 
 
