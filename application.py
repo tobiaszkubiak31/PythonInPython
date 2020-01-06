@@ -9,13 +9,15 @@ class Application:
     def __init__(self, net):
         self.net = net
 
+
     def launch_game(self):
+        pygame.init()  # now use display and fonts
         game_window = GameWindow()
         game = Game()
         game_window.set_game_object(game)
         game.create_players()
-
         clock = pygame.time.Clock()
+
 
         run = True
         while run:
@@ -31,8 +33,12 @@ class Application:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     run = False
+            if(game.player_one.checkCollision()):
+                print("you lost")
+                break
 
             game.player_one.move()
             game_window.redraw_window()
 
+        game_window.draw_gameover()
         self.net.close()

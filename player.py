@@ -13,6 +13,8 @@ class Player:
         self.direction = 0;
         self.length = 3
 
+        self.widthWindow = 500
+        self.heightWindow = 500
     def draw(self, win):
         #:todo draw a lot of rects
         pygame.draw.rect(win, self.color, self.rect)
@@ -45,12 +47,14 @@ class Player:
         if self.direction == 4:
             self.y += self.speed
 
-
-
-
-        #:todo check colision
-
         self.update()
 
     def update(self):
         self.rect = (self.x, self.y, self.width, self.height)
+    def checkCollision(self):
+        if self.x >= self.widthWindow or self.x < 0 or self.y >= self.widthWindow or self.y < 0:
+            return True
+        else:
+            False
+
+

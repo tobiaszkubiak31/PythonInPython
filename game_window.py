@@ -1,3 +1,5 @@
+import time
+
 import pygame
 
 
@@ -28,3 +30,11 @@ class GameWindow:
         self.draw_player(self.game.player_two)
         # self.draw_fruits()
         pygame.display.update()
+    def draw_gameover(self):
+        self.win.fill((0, 0, 0))
+        self.font_style = pygame.font.SysFont(None, 50)
+        mesg = self.font_style.render("Game Over", True, (255, 255, 255))
+        self.win.blit(mesg, [self.width / 2 - 80, self.height / 2-50])
+        pygame.display.update()
+        time.sleep(5)
+        pygame.quit()
