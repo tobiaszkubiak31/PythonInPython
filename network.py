@@ -31,7 +31,10 @@ class Network:
         self.conn.connect((ip, port))
 
     def send(self, data):
-        return self.socket.send(str.encode(data))
+        try:
+            return self.socket.send(str.encode(data))
+        except socket.error as e:
+            print(e)
 
     def recv(self):
         return self.conn.recv(2048).decode()
@@ -39,3 +42,4 @@ class Network:
     def close(self):
         self.socket.close()
         self.conn.close()
+

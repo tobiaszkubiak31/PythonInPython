@@ -15,9 +15,11 @@ def main():
     logging.basicConfig(level=logging.INFO)
 
     net = establish_network()
+    
+    # print(net.recv())
 
-    application = Application(net)
-    application.launch_game()
+    # application = Application(net)
+    # application.launch_game()
 
 
 if __name__ == '__main__':

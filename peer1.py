@@ -14,8 +14,10 @@ def establish_network():
 def main():
     logging.basicConfig(level=logging.INFO)
 
-    net = establish_network()
-
+    # net = establish_network()
+    # print("lol")
+    # net.send("hello")
+    net = Network(ip="localhost", port=5555)
     application = Application(net)
     application.launch_game()
 

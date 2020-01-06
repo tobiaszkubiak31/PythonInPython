@@ -11,7 +11,7 @@ class GameWindow:
 
     def set_window(self):
         self.win = pygame.display.set_mode((self.width, self.height))
-        pygame.display.set_caption("Some Amazing Game")
+        pygame.display.set_caption("Snake for 2 players")
 
     def set_game_object(self, game):
         self.game = game

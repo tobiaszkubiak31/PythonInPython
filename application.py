@@ -1,3 +1,5 @@
+import time
+
 import pygame
 from game_window import GameWindow
 from game import Game
@@ -17,7 +19,13 @@ class Application:
 
         run = True
         while run:
+
             clock.tick(60)
+
+            # while 1:
+            #     clock.tick(500)
+            #     self.net.send("hello")
+            #     self.net.recv
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

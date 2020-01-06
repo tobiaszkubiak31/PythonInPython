@@ -2,32 +2,53 @@ import pygame
 
 
 class Player:
-    def __init__(self, x=0, y=0, width=100, height=100, color=(0, 255, 0)):
+    def __init__(self, x=0, y=0, width=20, height=20, color=(0, 255, 0)):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
         self.color = color
         self.rect = (x, y, width, height)
-        self.vel = 3
+        self.speed = 1 #speed
+        self.direction = 0;
+        self.length = 3
 
     def draw(self, win):
+        #:todo draw a lot of rects
         pygame.draw.rect(win, self.color, self.rect)
 
     def move(self):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT]:
-            self.x -= self.vel
+            self.direction = 1
 
         if keys[pygame.K_RIGHT]:
-            self.x += self.vel
+            self.direction = 2
 
         if keys[pygame.K_UP]:
-            self.y -= self.vel
+            self.direction = 3
 
         if keys[pygame.K_DOWN]:
-            self.y += self.vel
+            self.direction = 4
+
+
+        if self.direction == 1:
+            self.x -= self.speed
+
+        if self.direction == 2:
+            self.x += self.speed
+
+        if self.direction == 3:
+            self.y -= self.speed
+
+        if self.direction == 4:
+            self.y += self.speed
+
+
+
+
+        #:todo check colision
 
         self.update()
 
