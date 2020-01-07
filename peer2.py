@@ -16,7 +16,10 @@ def main():
 
     net = establish_network()
 
-    application = Application(net)
+    application = Application()
+    application.set_network(net)
+    application.set_environment()
+    application.set_snake_color((0, 255, 255))
     application.launch_game()
 
 

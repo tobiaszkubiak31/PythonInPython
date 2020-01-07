@@ -37,6 +37,7 @@ class Player:
     def set_position(self, x, y):
         self.x = x
         self.y = y
+        self.update()
 
     def get_position(self):
         return self.x, self.y
