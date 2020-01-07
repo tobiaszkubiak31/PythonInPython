@@ -1,4 +1,4 @@
-from network import Network
+from networking.network import Network
 from application import Application
 import logging
 

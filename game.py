@@ -1,5 +1,5 @@
-from player import Player
-from fruit import Fruit
+from models.player import Player
+from models.fruit import Fruit
 
 class Game:
     def __init__(self):

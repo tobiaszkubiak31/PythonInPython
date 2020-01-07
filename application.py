@@ -24,7 +24,7 @@ class Application:
         run = True
         while run:
 
-            clock.tick(60)
+            clock.tick(10)
 
             # while 1:
             #     clock.tick(500)
@@ -35,11 +35,12 @@ class Application:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     run = False
-            if(game.player_one.checkCollision()):
+            if(game.player_one.check_collision_boundaries()):
                 print("you lost")
                 break
 
             game.player_one.move()
+            game.player_one.check_fruitposition(game.fruits)
             game_window.redraw_window()
 
         game_window.draw_gameover()
