@@ -7,35 +7,40 @@ class Network:
         self.ip = ip
         self.port = port
         self.address = (self.ip, self.port)
-        self.socket = None  # socket for writing data
-        self.conn = None  # socket for listening for incoming data
+        self.server = None  # listens for connection requests
+        self.sender = None  # sends data to the other player
+        self.receiver = None  # listens for incoming data
 
     def start(self):
         """Start server."""
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)   # to prevent "address already in use" error
-        self.socket.bind(self.address)
-        self.socket.listen(1)   # limit number of connections to 1
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)   # to prevent "address already in use" error
+        self.server.bind(self.address)
+        self.server.listen(1)   # limit number of connections to 1
         logging.info("Server Started")
 
     def accept(self):
         """Accept incoming connection from other player."""
         logging.info("Waiting for a connection...")
-        conn, addr = self.socket.accept()
+        self.receiver, addr = self.server.accept()
         logging.info("Connected to: " + str(addr))
-        return conn, addr
 
     def connect(self, ip, port):
-        """Connect to other player."""
-        self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.conn.connect((ip, port))
+        """Connect to the other player."""
+        self.sender = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sender.connect((ip, port))
 
     def send(self, data):
-        return self.socket.send(str.encode(data))
+        data_str = str(data) + '\n'
+        self.sender.sendall(data_str.encode())
 
     def recv(self):
-        return self.conn.recv(2048).decode()
+        return self.receiver.recv(4096).decode()
+
+    # def flush(self):
+    #     self.receiver.
 
     def close(self):
-        self.socket.close()
-        self.conn.close()
+        self.server.close()
+        self.sender.close()
+        self.receiver.close()

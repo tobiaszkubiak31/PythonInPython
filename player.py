@@ -33,3 +33,10 @@ class Player:
 
     def update(self):
         self.rect = (self.x, self.y, self.width, self.height)
+
+    def set_position(self, x, y):
+        self.x = x
+        self.y = y
+
+    def get_position(self):
+        return self.x, self.y

@@ -1,6 +1,9 @@
 import pygame
 from game_window import GameWindow
 from game import Game
+from data_sender import Sender
+from data_receiver import Receiver
+from threading import Thread
 
 
 class Application:
@@ -15,6 +18,13 @@ class Application:
 
         clock = pygame.time.Clock()
 
+        sender = Sender(self.net, game)
+        receiver = Receiver(self.net, game)
+        sender_thread = Thread(target=sender.run)
+        receiver_thread = Thread(target=receiver.run)
+        sender_thread.start()
+        receiver_thread.start()
+
         run = True
         while run:
             clock.tick(60)
@@ -27,4 +37,6 @@ class Application:
             game.player_one.move()
             game_window.redraw_window()
 
+        sender.terminate()
+        receiver.terminate()
         self.net.close()
