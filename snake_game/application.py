@@ -1,7 +1,9 @@
 import pygame
-from game_window import GameWindow
-from game import Game
+from snake_game.game_window import GameWindow
+from snake_game.game import Game
 from ast import literal_eval as make_tuple
+from network.network import Network
+from threading import Thread
 
 
 class Application:
@@ -9,9 +11,6 @@ class Application:
         self.net = None
         self.game = None
         self.game_window = None
-
-    def set_network(self, net):
-        self.net = net
 
     def set_environment(self):
         self.game_window = GameWindow()
@@ -27,12 +26,12 @@ class Application:
         while run:
             clock.tick(60)
 
-            self.update_game()
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     run = False
+
+            self.update_game()
 
             self.game_window.redraw_window()
 
@@ -65,3 +64,11 @@ class Application:
 
     def set_snake_color(self, color):
         self.game.player_one.color = color
+
+    def establish_network(self, ip="localhost", port=5555):
+        self.net = Network(ip=ip, port=port)
+        self.net.start()
+        Thread(target=self.net.accept).start()
+
+    def connect_to_peer(self, ip, port):
+        self.net.connect(ip=ip, port=port)

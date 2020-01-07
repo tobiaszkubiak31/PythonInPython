@@ -28,7 +28,12 @@ class Network:
     def connect(self, ip, port):
         """Connect to the other player."""
         self.sender = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sender.connect((ip, port))
+        while True:
+            try:
+                self.sender.connect((ip, port))
+                break
+            except ConnectionRefusedError:
+                pass
 
     def send(self, data):
         data_str = str(data) + '\n'
@@ -36,9 +41,6 @@ class Network:
 
     def recv(self):
         return self.receiver.recv(4096).decode()
-
-    # def flush(self):
-    #     self.receiver.
 
     def close(self):
         self.server.close()

@@ -113,7 +113,7 @@ class Launcher(QWidget):
         self.setLayout(self.layout)
 
     def button_connect(self):
-        self.app.establish_network()
+        self.app.establish_network(port=5556)
         ip = self.ip_text_field.text()
         port = self.port_text_field.text()
         port = int(port)
@@ -122,7 +122,7 @@ class Launcher(QWidget):
 
     def button_start(self):
         self.app.set_environment()
-        self.app.set_snake_color((100, 0, 100))
+        self.app.set_snake_color((0, 255, 255))
         self.close()
         self.app.launch_game()
 

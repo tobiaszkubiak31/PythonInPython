@@ -1,4 +1,4 @@
-from player import Player
+from snake_game.player import Player
 
 
 class Game:
