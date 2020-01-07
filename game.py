@@ -1,6 +1,6 @@
 from models.player import Player
 from models.fruit import Fruit
-
+import models.colors as colors
 class Game:
     def __init__(self):
         self.player_one = None
@@ -8,8 +8,8 @@ class Game:
         self.fruits = []
 
     def create_players(self):
-        self.player_one = Player()
-        self.player_two = Player()
+        self.player_one = Player(0,0,colors.blue)
+        self.player_two = Player(450,450,colors.red)
     def create_fruits(self):
         self.fruits.append(Fruit())
         self.fruits.append(Fruit())
