@@ -72,7 +72,7 @@ class Player:
 
     def check_boundaries(self):
 
-        if(self.head.y > 500 or self.head.y < 0 or self.head.x > 500 or self.head.x < 0):
+        if(self.head.y > 480 or self.head.y < 0 or self.head.x > 480 or self.head.x < 0):
             self.game_over = True
 
 
