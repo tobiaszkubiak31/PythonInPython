@@ -45,8 +45,8 @@ class Launcher(QWidget):
 
         self.set_ip_label = QLabel("IP:")
         self.set_port_label = QLabel("PORT:")
-        self.ip_text_field = QLineEdit()
-        self.port_text_field = QLineEdit()
+        self.ip_text_field = QLineEdit("localhost")
+        self.port_text_field = QLineEdit("5555")
         self.port_text_field.setMaximumWidth(50)
 
         self.address_widget = QWidget()

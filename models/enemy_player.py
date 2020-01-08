@@ -5,9 +5,12 @@ from models.block import block
 
 class Player_enemy:
     def __init__(self, x=0, y=0, color=colors.black):
+
         self.color = color
         self.block_size = 20
         self.snake_body = []
+
+
         self.score = 0
         self.widthWindow = 500
         self.heightWindow = 500
@@ -16,7 +19,7 @@ class Player_enemy:
         self.snake_body.clear
         for end in vector:
             self.snake_body.append(block(end[0],end[1]))
-
+        print(vector)
 
     def check_fruitposition(self,fruits):
         for  fruit in fruits:

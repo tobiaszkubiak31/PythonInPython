@@ -5,7 +5,6 @@ from models.block import block
 
 class Player:
     def __init__(self):
-        self.head = block(40,0)
         self.color = colors.black
         self.block_size = 20
         self.direction = 2
@@ -20,6 +19,7 @@ class Player:
         self.snake_body.append(block(x,y))
         self.snake_body.append(block(x + 20, y))
         self.snake_body.append(block(x + 40,y))
+        self.head = block(x+40, y)
     def move(self):
         keys = pygame.key.get_pressed()
 
@@ -65,7 +65,8 @@ class Player:
         vector = []
         for block in self.snake_body:
             vector = [(block.x,block.y)] + vector
-        return vector
+
+
     def check_boundaries(self):
 
         if(self.head.y > 500 or self.head.y < 0 or self.head.x > 500 or self.head.x < 0):
