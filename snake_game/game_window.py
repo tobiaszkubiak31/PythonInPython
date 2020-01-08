@@ -58,6 +58,7 @@ class GameWindow:
         pygame.display.update()
 
     def draw_gameover(self):
+        pygame.init()
         self.win.fill((0, 0, 0))
         self.font_style = pygame.font.SysFont(None, 50)
         mesg = self.font_style.render("Game Over", True, (255, 255, 255))

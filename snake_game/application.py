@@ -50,6 +50,7 @@ class Application:
 
             self.game_window.redraw_window()
 
+        self.game_window.draw_gameover()
         self.net.close()
 
     def update_game(self):
