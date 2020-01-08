@@ -48,10 +48,10 @@ class Player:
 
         if self.direction == 4:
             self.head.y += self.block_size
-        # print("x")
-        # print(self.head.x)
-        # print("y")
-        # print(self.head.y)
+        print("x")
+        print(self.head.x)
+        print("y")
+        print(self.head.y)
         self.update()
 
     def update(self):
@@ -91,7 +91,7 @@ class Player:
         for  fruit in fruits:
             # print(head + fruit.x + ' ' +  fruit.y)
             for block in self.snake_body:
-                if(self.head.x == fruit.x) and (self.head.y == fruit.y):
+                if(block.x == fruit.x) and (block.y == fruit.y):
                     self.score = self.score + 1
                     fruit.generate_position()
 

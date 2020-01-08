@@ -17,7 +17,7 @@ class Game:
     def create_fruits(self):
         self.fruits.append(Fruit())
     def append_enemy_fruit(self,fruit_cord):
-        fruits = self.fruits[::1]
+        self.fruits = self.fruits[:1]
         fruit = Fruit()
         fruit.x = fruit_cord[0]
         fruit.y = fruit_cord[1]

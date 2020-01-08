@@ -83,9 +83,6 @@ class Application:
         self.game.append_enemy_fruit(received_fruit)
 
 
-
-
-
     def send_data(self, data):
         self.net.send(str(data))
 

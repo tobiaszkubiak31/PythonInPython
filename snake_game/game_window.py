@@ -50,8 +50,12 @@ class GameWindow:
         # self.draw_last_block(self.game.player_one)
         self.draw_player(self.game.player_one)
         self.draw_player(self.game.player_enemy)
-        self.draw_fruits(self.game.fruits[0])
-        self.draw_fruits(self.game.fruits[1])
+        if(len(self.game.fruits) == 1):
+            self.draw_fruits(self.game.fruits[0])
+        else:
+            self.draw_fruits(self.game.fruits[0])
+            self.draw_fruits(self.game.fruits[1])
+
         pygame.display.update()
 
     def draw_gameover(self):
