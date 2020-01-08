@@ -13,25 +13,23 @@ class GameWindow:
         self.game = None
         self.set_window()
         #self.grass_image = pygame.image.load('grass.jpg')
-        # self.draw_field()
-        # self.win.blit(self.grass_image, (20, 20))
 
     def set_window(self):
         self.win = pygame.display.set_mode((self.width, self.height))
+
         pygame.display.set_caption("Snake for 2 players")
 
     def set_game_object(self, game):
         self.game = game
 
     def draw_player(self, player):
-        print("player body")
-        print(player.snake_body)
         for block in player.snake_body:
             pygame.draw.rect(self.win, player.color, [block.x, block.y, 20, 20])
             # print(block.x)
             # print(block.y)
             # self.win.blit(pygame.image.load('fruit.jpg'), (block.x,block.y))
 
+    #functom which fill all block with grass
     def draw_field(self):
         for y in range(0, 500, 20):
             for x in range(0, 500, 20):
@@ -42,8 +40,7 @@ class GameWindow:
 
     def draw_fruits(self, fruit):
         pygame.draw.rect(self.win, colors.blue, [fruit.x, fruit.y, 20, 20])
-        # with graphic
-        # self.win.blit(fruit.apple_image, (fruit.x, fruit.y))
+
 
     def draw_last_block(self, player):
         self.win.blit(self.grass_image, (20, 20))
@@ -66,4 +63,15 @@ class GameWindow:
         pygame.display.update()
         time.sleep(5)
         pygame.quit()
+
+    def draw_you_win(self):
+        pygame.init()
+        self.win.fill((0, 0, 0))
+        self.font_style = pygame.font.SysFont(None, 50)
+        mesg = self.font_style.render("You Win", True, (255, 255, 255))
+        self.win.blit(mesg, [self.width / 2 - 80, self.height / 2 - 50])
+        pygame.display.update()
+        time.sleep(5)
+        pygame.quit()
+
 

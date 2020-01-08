@@ -12,3 +12,4 @@ class Fruit:
     def generate_position(self):
         self.x = round(random.randrange(0, self.lenght_widthx) / 20.0) * 20.0
         self.y = round(random.randrange(0, self.lenght_widthy) / 20.0) * 20.0
+

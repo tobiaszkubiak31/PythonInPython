@@ -1,4 +1,6 @@
 import pygame
+
+from models.fruit import Fruit
 from snake_game.game_window import GameWindow
 from snake_game.game import Game
 from ast import literal_eval as make_tuple
@@ -15,6 +17,7 @@ class Application:
     def set_environment(self):
         pygame.init
         self.game_window = GameWindow()
+
         self.game = Game()
 
         self.game_window.set_game_object(self.game)
@@ -26,39 +29,45 @@ class Application:
 
         run = True
         while run:
-            clock.tick(2)
+            clock.tick(3)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     run = False
 
-            if (self.game.player_one.check_boundaries()):
-                print("you lost")
-                break
+
+
 
             self.game.player_one.move()
-            if (self.game.player_one.check_collision_with_self()):
-                break
-            if (self.game.player_one.check_boundaries()):
-                break
-            if (self.game.player_one.check_collision_with_player(self.game.player_enemy)):
-                break
+
+            self.game.player_one.check_collision_with_self()
+            self.game.player_one.check_boundaries()
+           # self.game.player_one.check_collision_with_player(self.game.player_enemy)
 
             self.game.player_one.check_fruitposition(self.game.fruits)
             self.update_game()
 
+            if(self.game.player_enemy.game_over == True):
+                self.update_game()
+                self.game_window.draw_you_win()
+            if (self.game.player_one.game_over == True):
+                self.update_game()
+                self.game_window.draw_gameover()
+
             self.game_window.redraw_window()
 
-        self.game_window.draw_gameover()
+
         self.net.close()
 
     def update_game(self):
-        player_lost_flag = self.game.player_one.you_lost_flag
+        player_lost_flag = self.game.player_one.game_over
         player_vector = self.game.player_one.get_vector()
         player_color_flag = self.game.player_one.color
+        fruit = self.game.fruits[0]
+        fruit_cord = (fruit.x,fruit.y)
 
-        data_to_send = player_vector, player_lost_flag, player_color_flag
+        data_to_send = player_vector, player_lost_flag, player_color_flag,fruit_cord
 
         self.send_data(data_to_send)
 
@@ -66,10 +75,15 @@ class Application:
         received_player_vector = data_received[0]
         received_player_lost_flag = data_received[1]
         received_player_color = data_received[2]
-        if (received_player_lost_flag == True):
-            print("You win")
+        received_fruit = data_received[3]
+
         self.game.player_enemy.update_position(received_player_vector)
+        self.game.player_enemy.gameover = received_player_lost_flag
         self.game.player_enemy.color = received_player_color
+        self.game.append_enemy_fruit(received_fruit)
+
+
+
 
 
     def send_data(self, data):
@@ -79,9 +93,9 @@ class Application:
         data = self.net.recv()
         data = data.split('\n')[0]
         try:
-            x, y , z = make_tuple(data)
+            x, y , z , w= make_tuple(data)
             # print(x, y)
-            return x, y, z
+            return x, y, z , w
         except SyntaxError:
             return self.game.player_one.get_vector()
 
@@ -100,6 +114,5 @@ class Application:
         self.game.player_one.init_body(x,y)
     def snake_init_body(self):
         self.game.player_one.init_body()
-
 
 

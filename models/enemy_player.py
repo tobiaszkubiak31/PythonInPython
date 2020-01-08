@@ -9,7 +9,7 @@ class Player_enemy:
         self.color = color
         self.block_size = 20
         self.snake_body = []
-
+        self.game_over = False
 
         self.score = 0
         self.widthWindow = 500

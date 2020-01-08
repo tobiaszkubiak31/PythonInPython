@@ -10,7 +10,7 @@ class Player:
         self.direction = 2
         self.length = 2
         self.snake_body = []
-        self.you_lost_flag = False
+        self.game_over = False
         self.score = 0
         self.widthWindow = 500
         self.heightWindow = 500
@@ -61,8 +61,6 @@ class Player:
             self.length = self.length + 1
             return
         del self.snake_body[0]
-        print("snake body in update")
-        print(self.snake_body)
 
     def get_vector(self):
         vector = []
@@ -75,56 +73,25 @@ class Player:
     def check_boundaries(self):
 
         if(self.head.y > 500 or self.head.y < 0 or self.head.x > 500 or self.head.x < 0):
-            self.you_lost_flag = True
-            return True
-        else:
-            False
-        #without collision to fix
-        # for block in self.snake_body:
-        #     if self.head.y < 0:
-        #         self.head.y = 500
-        #     if block.y < 0:
-        #         block.y = 500
-        #         return
-        #
-        #     if self.head.x < 0:
-        #         self.head.x = 500
-        #     if block.x < 0:
-        #         block.x = 500
-        #         return
-        #
-        #     if self.head.x >= self.widthWindow - 20:
-        #         self.head.x = -20
-        #     if block.x > self.widthWindow - 20:
-        #         block.x = -20
-        #         return
-        #
-        #     if self.head.y >= self.widthWindow - 20:
-        #         self.head.y = -20
-        #     if block.y > self.widthWindow - 20:
-        #         block.y = -20
-        #         return
+            self.game_over = True
+
 
     def check_collision_with_player(self,player):
         for block in player.snake_body[0:len(player.snake_body)]:
             if (self.head.y == block.x and self.head.y == block.y):
-                self.you_lost_flag = True
-                return True
+                self.game_over = True
 
 
     def check_collision_with_self(self):
-        for  block in self.snake_body[0:len(self.snake_body)]:
+        for  block in self.snake_body[0:len(self.snake_body)-1]:
             if ((self.head.x == block.x and self.head.y == block.y)):
-                self.you_lost_flag = True
-                return True
-            else:
-                return False
+                self.game_over = True
 
     def check_fruitposition(self,fruits):
         for  fruit in fruits:
             # print(head + fruit.x + ' ' +  fruit.y)
             for block in self.snake_body:
-                if(self.head.x==fruit.x) and (self.head.y == fruit.y):
+                if(self.head.x == fruit.x) and (self.head.y == fruit.y):
                     self.score = self.score + 1
                     fruit.generate_position()
 

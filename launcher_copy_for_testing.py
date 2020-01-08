@@ -12,7 +12,7 @@ class Launcher(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("FANTASTIC MULTIPLAYER SNAKE GAME")
-        self.setGeometry(600, 200, 700, 700)
+        self.setGeometry(1000, 200, 700, 700)
 
         self.layout = None
 
@@ -45,7 +45,7 @@ class Launcher(QWidget):
         self.set_ip_label = QLabel("IP:")
         self.set_port_label = QLabel("PORT:")
         self.ip_text_field = QLineEdit("localhost")
-        self.port_text_field = QLineEdit("5556")
+        self.port_text_field = QLineEdit("5555")
         self.port_text_field.setMaximumWidth(50)
 
         self.address_widget = QWidget()
@@ -125,7 +125,7 @@ class Launcher(QWidget):
     def button_start(self):
         self.app.set_environment()
         self.app.set_snake_color(colors.red)
-        self.app.set_snake_position(0, 480)
+        self.app.set_snake_position(20, 400)
         self.close()
         self.app.launch_game()
 
