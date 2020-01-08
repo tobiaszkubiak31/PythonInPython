@@ -29,7 +29,7 @@ class Application:
 
         run = True
         while run:
-            clock.tick(3)
+            clock.tick(2)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -40,12 +40,12 @@ class Application:
 
 
             self.game.player_one.move()
-
+            self.game.player_one.check_fruitposition(self.game.fruits)
             self.game.player_one.check_collision_with_self()
             self.game.player_one.check_boundaries()
-           # self.game.player_one.check_collision_with_player(self.game.player_enemy)
+            self.game.player_one.check_collision_with_player(self.game.player_enemy)
 
-            self.game.player_one.check_fruitposition(self.game.fruits)
+
             self.update_game()
 
             if(self.game.player_enemy.game_over == True):

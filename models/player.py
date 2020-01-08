@@ -78,7 +78,7 @@ class Player:
 
     def check_collision_with_player(self,player):
         for block in player.snake_body[0:len(player.snake_body)]:
-            if (self.head.y == block.x and self.head.y == block.y):
+            if (self.head.y == block.y and self.head.x == block.x):
                 self.game_over = True
 
 
