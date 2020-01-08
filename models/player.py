@@ -15,11 +15,12 @@ class Player:
         self.widthWindow = 500
         self.heightWindow = 500
 
+
     def init_body(self,x,y):
         self.snake_body.append(block(x,y))
         self.snake_body.append(block(x + 20, y))
         self.snake_body.append(block(x + 40,y))
-        self.head = block(x+40, y)
+        self.head = block(x + 40, y)
     def move(self):
         keys = pygame.key.get_pressed()
 
@@ -60,11 +61,15 @@ class Player:
             self.length = self.length + 1
             return
         del self.snake_body[0]
+        print("snake body in update")
         print(self.snake_body)
+
     def get_vector(self):
         vector = []
         for block in self.snake_body:
-            vector = [(block.x,block.y)] + vector
+            vector = vector + [(block.x,block.y)]
+
+        return vector
 
 
     def check_boundaries(self):

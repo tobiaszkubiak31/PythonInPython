@@ -16,10 +16,13 @@ class Player_enemy:
         self.heightWindow = 500
 
     def update_position(self,vector):
-        self.snake_body.clear
+        self.snake_body[:] = []
+
         for end in vector:
             self.snake_body.append(block(end[0],end[1]))
-        print(vector)
+        # print("enemy snake body while update enemy_player")
+        # print(vector)
+
 
     def check_fruitposition(self,fruits):
         for  fruit in fruits:

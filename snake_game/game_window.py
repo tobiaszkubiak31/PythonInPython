@@ -24,8 +24,12 @@ class GameWindow:
         self.game = game
 
     def draw_player(self, player):
+        print("player body")
+        print(player.snake_body)
         for block in player.snake_body:
             pygame.draw.rect(self.win, player.color, [block.x, block.y, 20, 20])
+            # print(block.x)
+            # print(block.y)
             # self.win.blit(pygame.image.load('fruit.jpg'), (block.x,block.y))
 
     def draw_field(self):

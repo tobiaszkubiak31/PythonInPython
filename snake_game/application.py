@@ -26,7 +26,7 @@ class Application:
 
         run = True
         while run:
-            clock.tick(1)
+            clock.tick(2)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -38,7 +38,6 @@ class Application:
                 break
 
             self.game.player_one.move()
-
             if (self.game.player_one.check_collision_with_self()):
                 break
             if (self.game.player_one.check_boundaries()):
@@ -47,7 +46,6 @@ class Application:
                 break
 
             self.game.player_one.check_fruitposition(self.game.fruits)
-
             self.update_game()
 
             self.game_window.redraw_window()
@@ -60,6 +58,7 @@ class Application:
         player_color_flag = self.game.player_one.color
 
         data_to_send = player_vector, player_lost_flag, player_color_flag
+
         self.send_data(data_to_send)
 
         data_received = self.receive_data()
