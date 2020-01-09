@@ -4,12 +4,13 @@ from models import colors
 
 
 class GameWindow:
-    def __init__(self, width, height):
+    def __init__(self, width, height, block_size):
         self.width = width
         self.height = height
         self.win = None
         self.game = None
         self.set_window()
+        self.block_size = block_size
 
     def set_window(self):
         self.win = pygame.display.set_mode((self.width, self.height))
@@ -17,23 +18,29 @@ class GameWindow:
 
     def set_game_object(self, game):
         self.game = game
+        self.game.block_size = self.block_size
 
     def draw_checkerboard(self):
-        for y in range(0, 500, 40):
-            for x in range(0, 500, 40):
-                pygame.draw.rect(self.win, self.game.checkerboard_colors[0], [x, y, 20, 20])
-            for x in range(20, 500, 40):
-                pygame.draw.rect(self.win, self.game.checkerboard_colors[1], [x, y, 20, 20])
-        for y in range(20, 500, 40):
-            for x in range(20, 500, 40):
-                pygame.draw.rect(self.win, self.game.checkerboard_colors[0], [x, y, 20, 20])
-            for x in range(0, 500, 40):
-                pygame.draw.rect(self.win, self.game.checkerboard_colors[1], [x, y, 20, 20])
+        for y in range(0, self.width, 2*self.block_size):
+            for x in range(0, self.height, 2*self.block_size):
+                pygame.draw.rect(self.win, self.game.checkerboard_colors[0], [x, y, self.block_size, self.block_size])
+            for x in range(self.block_size, self.height, 2*self.block_size):
+                pygame.draw.rect(self.win, self.game.checkerboard_colors[1], [x, y, self.block_size, self.block_size])
+        for y in range(self.block_size, self.width, 2*self.block_size):
+            for x in range(self.block_size, self.height, 2*self.block_size):
+                pygame.draw.rect(self.win, self.game.checkerboard_colors[0], [x, y, self.block_size, self.block_size])
+            for x in range(0, self.height, 2*self.block_size):
+                pygame.draw.rect(self.win, self.game.checkerboard_colors[1], [x, y, self.block_size, self.block_size])
 
     def draw_player(self, player):
         for block in player.snake_body:
-            pygame.draw.rect(self.win, player.color, [block.x, block.y, 20, 20])
+            pygame.draw.rect(self.win, player.color, [block.x, block.y, self.block_size, self.block_size])
             # self.win.blit(self.game.player.snake_straight, (block.x, block.y))
+
+        # self.win.blit(pygame.transform.rotate(player.snake_top, player.direction * 90 + 90),
+        #               player.snake_body[0].position())
+
+        # for i in range(len(player.snake_body)):
 
     def draw_fruits(self):
         fruit = self.game.fruit

@@ -6,7 +6,6 @@ from models.fruit import Fruit
 from ast import literal_eval as make_tuple
 from network.network import Network
 from threading import Thread
-import time
 
 
 class Application:
@@ -17,7 +16,7 @@ class Application:
 
     def set_environment(self):
         pygame.init()
-        self.game_window = GameWindow(width=500, height=500)
+        self.game_window = GameWindow(width=900, height=900, block_size=30)
         self.game = Game()
 
         self.game_window.set_game_object(self.game)
@@ -26,8 +25,8 @@ class Application:
         self.game.create_players()
         self.game.spawn_fruit()
 
-        color1 = (30, 200, 30)
-        color2 = (30, 160, 30)
+        color1 = (90, 240, 90)
+        color2 = (80, 220, 80)
         self.game.set_checkerboard_colors(color1, color2)
 
     def launch_game(self):
@@ -48,6 +47,7 @@ class Application:
 
             if counter % 10 == 0:
                 self.game.player.move()
+
             self.game.check_for_collisions()
 
             self.update_game()
@@ -87,7 +87,7 @@ class Application:
         self.game.enemy_fruit = received_enemy_fruit
 
         if received_enemy_fruit is not False:
-            self.game.enemy_fruit = Fruit(*received_enemy_fruit)
+            self.game.enemy_fruit = Fruit(*received_enemy_fruit, self.game.block_size)
 
         if received_fruit is False:
             self.game.spawn_fruit()

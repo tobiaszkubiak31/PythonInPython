@@ -125,7 +125,7 @@ class Launcher(QWidget):
     def button_start(self):
         self.app.set_environment()
         self.app.set_snake_color(colors.blue)
-        self.app.set_snake_position(20, 80)
+        self.app.set_snake_position(30, 90)
         self.close()
         self.app.launch_game()
 

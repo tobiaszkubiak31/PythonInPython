@@ -15,7 +15,6 @@ class Player:
         self.snake_turn_pic = None
         self.snake_straight = None
         self.snake_end = None
-        self.load_snake_pics()
 
     def init_body(self, x, y):
         for i in range(self.body_length):
@@ -24,14 +23,14 @@ class Player:
 
     def load_snake_pics(self):
         self.snake_top = pygame.image.load('graphics/snake_top.png')
-        self.snake_top = pygame.transform.scale(self.snake_top, (20, 20))
-        self.snake_top = pygame.transform.scale(self.snake_top, (20, 20))
+        self.snake_top = pygame.transform.scale(self.snake_top, (self.block_size, self.block_size))
+        self.snake_top = pygame.transform.scale(self.snake_top, (self.block_size, self.block_size))
         self.snake_turn_pic = pygame.image.load('graphics/snake_angle_left.png')
-        self.snake_turn_pic = pygame.transform.scale(self.snake_turn_pic, (20, 20))
+        self.snake_turn_pic = pygame.transform.scale(self.snake_turn_pic, (self.block_size, self.block_size))
         self.snake_straight = pygame.image.load('graphics/snake_straight.png')
-        self.snake_straight = pygame.transform.scale(self.snake_straight, (20, 20))
+        self.snake_straight = pygame.transform.scale(self.snake_straight, (self.block_size, self.block_size))
         self.snake_end = pygame.image.load('graphics/snake_end.png')
-        self.snake_end = pygame.transform.scale(self.snake_end, (20, 20))
+        self.snake_end = pygame.transform.scale(self.snake_end, (self.block_size, self.block_size))
 
     def move_forward(self):
         if self.direction == 1:

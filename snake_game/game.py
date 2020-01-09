@@ -15,6 +15,7 @@ class Game:
         self.map_height = None
         self.game_over = False
         self.you_won = False
+        self.block_size = 40
 
     def set_checkerboard_colors(self, color1, color2):
         self.checkerboard_colors = (color1, color2)
@@ -25,12 +26,16 @@ class Game:
 
     def create_players(self):
         self.player = Player()
+        self.player.block_size = self.block_size
+        self.player.load_snake_pics()
         self.enemy = Player()
+        self.enemy.block_size = self.block_size
+        self.enemy.load_snake_pics()
 
     def spawn_fruit(self):
-        x = round(random.randrange(0, self.map_width) / 20.0) * 20.0
-        y = round(random.randrange(0, self.map_height) / 20.0) * 20.0
-        self.fruit = Fruit(x, y)
+        x = random.randrange(0, self.map_width) // self.block_size * self.block_size
+        y = random.randrange(0, self.map_height) // self.block_size * self.block_size
+        self.fruit = Fruit(x, y, self.block_size)
 
     def check_for_collisions(self):
         self.check_fruit_collision()
