@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QApplication, QLabel, QWidget, QLineEdi
 
 from models import colors
 from snake_game.application import Application
-
+# 10.128.140.75
 
 class Launcher(QWidget):
 
@@ -32,6 +32,7 @@ class Launcher(QWidget):
         self.exit_button = None
 
         self.app = Application()
+        # self.app.establish_network(ip="10.128.111.101")
         self.app.establish_network()
 
         self.init_UI()

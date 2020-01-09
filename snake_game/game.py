@@ -30,7 +30,7 @@ class Game:
         self.player.load_snake_pics()
         self.enemy = Player()
         self.enemy.block_size = self.block_size
-        self.enemy.load_snake_pics()
+        self.enemy.load_enemy_snake_pics()
 
     def spawn_fruit(self):
         x = random.randrange(0, self.map_width) // self.block_size * self.block_size

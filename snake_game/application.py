@@ -42,13 +42,13 @@ class Application:
                     pygame.quit()
                     run = False
 
+            self.game.check_for_collisions()
+
             if counter % 60 == 0:
                 self.game.player.move_forward()
 
             if counter % 10 == 0:
                 self.game.player.move()
-
-            self.game.check_for_collisions()
 
             self.update_game()
 
@@ -69,8 +69,9 @@ class Application:
         player_color_flag = self.game.player.color
         fruit1 = self.game.fruit.position() if isinstance(self.game.fruit, Fruit) else self.game.fruit
         fruit2 = self.game.enemy_fruit.position() if isinstance(self.game.enemy_fruit, Fruit) else self.game.enemy_fruit
+        direction = self.game.player.direction
 
-        data_to_send = player_vector, player_lost_flag, player_color_flag, fruit1, fruit2
+        data_to_send = player_vector, player_lost_flag, player_color_flag, fruit1, fruit2, direction
 
         self.send_data(data_to_send)
 
@@ -83,6 +84,7 @@ class Application:
         received_player_color = data_received[2]
         received_enemy_fruit = data_received[3]
         received_fruit = data_received[4]
+        received_direction = data_received[5]
 
         self.game.enemy_fruit = received_enemy_fruit
 
@@ -95,6 +97,7 @@ class Application:
         self.game.enemy.set_body(received_player_vector)
         self.game.you_won = received_player_lost_flag
         self.game.enemy.color = received_player_color
+        self.game.enemy.direction = received_direction
 
     def send_data(self, data):
         self.net.send(str(data))

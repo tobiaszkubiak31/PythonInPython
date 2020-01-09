@@ -33,14 +33,65 @@ class GameWindow:
                 pygame.draw.rect(self.win, self.game.checkerboard_colors[1], [x, y, self.block_size, self.block_size])
 
     def draw_player(self, player):
-        for block in player.snake_body:
-            pygame.draw.rect(self.win, player.color, [block.x, block.y, self.block_size, self.block_size])
-            # self.win.blit(self.game.player.snake_straight, (block.x, block.y))
+        # for block in player.snake_body:
+        #     pygame.draw.rect(self.win, player.color, [block.x, block.y, self.block_size, self.block_size])
 
-        # self.win.blit(pygame.transform.rotate(player.snake_top, player.direction * 90 + 90),
-        #               player.snake_body[0].position())
+        angle = 0
+        if player.direction == 1:
+            angle = 90
+        elif player.direction == 2:
+            angle = -90
+        elif player.direction == 3:
+            angle = 0
+        elif player.direction == 4:
+            angle = 180
+        self.win.blit(pygame.transform.rotate(player.snake_top, angle),
+                      player.snake_body[0].position())
 
-        # for i in range(len(player.snake_body)):
+        for i in range(1, len(player.snake_body)-1):
+            if player.snake_body[i-1].x == player.snake_body[i].x and player.snake_body[i+1].x == player.snake_body[i].x:
+                self.win.blit(pygame.transform.rotate(player.snake_straight, 90),
+                              player.snake_body[i].position())
+            elif player.snake_body[i-1].y == player.snake_body[i].y and player.snake_body[i+1].y == player.snake_body[i].y:
+                self.win.blit(pygame.transform.rotate(player.snake_straight, 0),
+                              player.snake_body[i].position())
+            elif player.snake_body[i-1].x == player.snake_body[i].x and player.snake_body[i+1].x < player.snake_body[i].x and player.snake_body[i-1].y < player.snake_body[i].y:
+                self.win.blit(pygame.transform.rotate(player.snake_turn_pic, -90),
+                              player.snake_body[i].position())
+            elif player.snake_body[i-1].x == player.snake_body[i].x and player.snake_body[i+1].x < player.snake_body[i].x and player.snake_body[i-1].y > player.snake_body[i].y:
+                self.win.blit(pygame.transform.rotate(player.snake_turn_pic, 0),
+                              player.snake_body[i].position())
+            elif player.snake_body[i-1].x == player.snake_body[i].x and player.snake_body[i+1].x > player.snake_body[i].x and player.snake_body[i-1].y < player.snake_body[i].y:
+                self.win.blit(pygame.transform.rotate(player.snake_turn_pic, 180),
+                              player.snake_body[i].position())
+            elif player.snake_body[i-1].x == player.snake_body[i].x and player.snake_body[i+1].x > player.snake_body[i].x and player.snake_body[i-1].y > player.snake_body[i].y:
+                self.win.blit(pygame.transform.rotate(player.snake_turn_pic, 90),
+                              player.snake_body[i].position())
+            elif player.snake_body[i-1].y == player.snake_body[i].y and player.snake_body[i+1].x == player.snake_body[i].x and player.snake_body[i-1].y > player.snake_body[i+1].y and player.snake_body[i-1].x < player.snake_body[i+1].x:
+                self.win.blit(pygame.transform.rotate(player.snake_turn_pic, -90),
+                              player.snake_body[i].position())
+            elif player.snake_body[i-1].y == player.snake_body[i].y and player.snake_body[i+1].x == player.snake_body[i].x and player.snake_body[i-1].y < player.snake_body[i+1].y and player.snake_body[i-1].x > player.snake_body[i+1].x:
+                self.win.blit(pygame.transform.rotate(player.snake_turn_pic, 90),
+                              player.snake_body[i].position())
+            elif player.snake_body[i-1].y == player.snake_body[i].y and player.snake_body[i+1].x == player.snake_body[i].x and player.snake_body[i-1].y < player.snake_body[i+1].y and player.snake_body[i-1].x < player.snake_body[i+1].x:
+                self.win.blit(pygame.transform.rotate(player.snake_turn_pic, 0),
+                              player.snake_body[i].position())
+            elif player.snake_body[i-1].y == player.snake_body[i].y and player.snake_body[i+1].x == player.snake_body[i].x and player.snake_body[i-1].y > player.snake_body[i+1].y and player.snake_body[i-1].x > player.snake_body[i+1].x:
+                self.win.blit(pygame.transform.rotate(player.snake_turn_pic, 180),
+                              player.snake_body[i].position())
+            else:
+                pygame.draw.rect(self.win, player.color, [player.snake_body[i].x, player.snake_body[i].y, self.block_size, self.block_size])
+
+        if player.snake_body[-2].x < player.snake_body[-1].x:
+            angle = -90
+        elif player.snake_body[-2].y < player.snake_body[-1].y:
+            angle = 180
+        elif player.snake_body[-2].x > player.snake_body[-1].x:
+            angle = 90
+        else:
+            angle = 0
+
+        self.win.blit(pygame.transform.rotate(player.snake_end, angle), player.snake_body[-1].position())
 
     def draw_fruits(self):
         fruit = self.game.fruit
