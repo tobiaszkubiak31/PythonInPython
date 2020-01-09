@@ -28,12 +28,11 @@ class Network:
     def connect(self, ip, port):
         """Connect to the other player."""
         self.sender = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        while True:
-            try:
-                self.sender.connect((ip, port))
-                break
-            except ConnectionRefusedError:
-                pass
+        try:
+            self.sender.connect((ip, port))
+            return True
+        except ConnectionRefusedError:
+            return False
 
     def send(self, data):
         data_str = str(data) + '\n'

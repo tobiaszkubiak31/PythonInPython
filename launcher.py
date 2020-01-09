@@ -8,7 +8,7 @@ from snake_game.application import Application
 
 
 class Launcher(QWidget):
-    
+
     def __init__(self):
         super().__init__()
         self.setWindowTitle("FANTASTIC MULTIPLAYER SNAKE GAME")
@@ -32,7 +32,7 @@ class Launcher(QWidget):
         self.exit_button = None
 
         self.app = Application()
-
+        self.app.establish_network()
 
         self.init_UI()
 
@@ -66,7 +66,7 @@ class Launcher(QWidget):
         self.connect_button.setMinimumWidth(250)
         self.connect_button.clicked.connect(self.button_connect)
         self.connect_button.setStyleSheet(
-                        """QWidget {
+            """QWidget {
                                border: 20px solid black;
                                border-radius: 10px;
                                background-color: yellow;
@@ -82,7 +82,7 @@ class Launcher(QWidget):
         self.start_button.clicked.connect(self.button_start)
         self.start_button.setDisabled(True)
         self.start_button.setStyleSheet(
-                        """QWidget {
+            """QWidget {
                                border: 20px solid black;
                                border-radius: 10px;
                                background-color: yellow;
@@ -97,7 +97,7 @@ class Launcher(QWidget):
         self.exit_button.setMinimumWidth(250)
         self.exit_button.clicked.connect(self.button_exit)
         self.exit_button.setStyleSheet(
-                        """QWidget {
+            """QWidget {
                                border: 20px solid black;
                                border-radius: 10px;
                                background-color: yellow;
@@ -114,10 +114,8 @@ class Launcher(QWidget):
         self.layout.addWidget(self.center_widget, alignment=QtCore.Qt.AlignCenter)
 
         self.setLayout(self.layout)
-    #10.128.111.101
-    #ip = "10.128.140.75"
+
     def button_connect(self):
-        self.app.establish_network()
         ip = self.ip_text_field.text()
         port = self.port_text_field.text()
         port = int(port)
@@ -127,7 +125,7 @@ class Launcher(QWidget):
     def button_start(self):
         self.app.set_environment()
         self.app.set_snake_color(colors.blue)
-        self.app.set_snake_position(20,80)
+        self.app.set_snake_position(20, 80)
         self.close()
         self.app.launch_game()
 

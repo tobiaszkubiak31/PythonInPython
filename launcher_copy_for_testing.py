@@ -32,8 +32,11 @@ class Launcher(QWidget):
         self.exit_button = None
 
         self.app = Application()
+        self.app.establish_network(port=5556)
 
         self.init_UI()
+
+        self.move(1000, 0)
 
     def init_UI(self):
         self.layout = QVBoxLayout()
@@ -115,7 +118,6 @@ class Launcher(QWidget):
         self.setLayout(self.layout)
 
     def button_connect(self):
-        self.app.establish_network(port=5556)
         ip = self.ip_text_field.text()
         port = self.port_text_field.text()
         port = int(port)
